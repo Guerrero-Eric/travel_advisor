@@ -14,16 +14,10 @@ import PlaceDetails from "../PlaceDetails/PlaceDetails";
 
 import useStyles from "./styles.js";
 
-const List = () => {
+const List = ({places}) => {
   const classes = useStyles();
   const [type, setType] = useState("restaurants");
   const [rating, setRating] = useState("");
-
-  const places = [
-    { name: "Place 1" },
-    { name: "Place 2" },
-    { name: "place 3" },
-  ];
 
   return (
     <div className={classes.container}>
@@ -36,7 +30,7 @@ const List = () => {
         <Select value={type} onChange={(e) => setType(e.target.value)}>
           <MenuItem value="restaurants">Restaurants</MenuItem>
           <MenuItem value="hotel">Hotel</MenuItem>
-          <MenuItem value="Attractions">Attractions</MenuItem>
+          <MenuItem value="attractions">Attractions</MenuItem>
         </Select>
       </FormControl>
       <FormControl className={classes.formControl}>
@@ -49,11 +43,11 @@ const List = () => {
         </Select>
       </FormControl>
       <Grid container spacing={3} className={classes.list}>
-        {places?.map((place, i) => {
+        {places?.map((place, i) => (
           <Grid item key={i} xs={12}>
             <PlaceDetails place={place}/>
-          </Grid>;
-        })}
+          </Grid>
+        ))}
       </Grid>
     </div>
   );

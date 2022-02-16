@@ -1,6 +1,5 @@
 import React from "react";
 import GoogleMapReact from "google-map-react";
-
 import { Paper, Typography, useMediaQuery } from "@material-ui/core";
 import LocationOnOutlinedIcon from "@material-ui/icons/LocationOnOutlined";
 import Rating from "@material-ui/lab/Rating";
@@ -9,7 +8,7 @@ import useStyles from "./styles";
 
 const Map = ({ setCoordinates, setBounds, coordinates }) => {
   const classes = useStyles();
-  const isMobile = useMediaQuery("(min-width: 600px)"); //if larger than 600px
+  const isMobile = useMediaQuery('(min-width: 600px)'); //if larger than 600px
 
   return (
     <div className={classes.mapContainer}>
@@ -25,7 +24,9 @@ const Map = ({ setCoordinates, setBounds, coordinates }) => {
           setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw });
         }}
         
-      ></GoogleMapReact>
+      >
+
+      </GoogleMapReact>
     </div>
   );
 };

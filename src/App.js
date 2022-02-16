@@ -11,7 +11,7 @@ const App = () => {
   const [places, setPlaces] = useState([]);
 
   const [coordinates, setCoordinates] = useState({});
-  const [bounds, setBounds] = useState(null); //lat and long boundary data
+  const [bounds, setBounds] = useState({}); //lat and long boundary data
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -22,14 +22,13 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    console.log(coordinates, bounds)
-    getPlacesData().then((data) => {
+    console.log(coordinates, bounds);
+    getPlacesData(bounds.sw, bounds.ne).then((data) => {
       // from asynch function
       console.log(data);
       setPlaces(data);
     });
   }, [coordinates, bounds]);
-
 
   return (
     <>
@@ -38,7 +37,7 @@ const App = () => {
       <Grid container spacing={3} style={{ width: "100%" }}>
         <Grid item xs={12} md={4}>
           {/*Full width on mobile or 4 spaces on mid to large devices.*/}
-          <List />
+          <List places = {places}/>
         </Grid>
         <Grid item xs={12} md={8}>
           <Map
