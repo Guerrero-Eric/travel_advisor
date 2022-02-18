@@ -35,29 +35,30 @@ const App = () => {
   }, [rating]);
 
   useEffect(() => {
-    console.log(coordinates, bounds);
+    if(bounds.sw && bounds.ne) {
     setIsLoading(true);
 
     getPlacesData(type, bounds.sw, bounds.ne).then((data) => {
-      // from asynch function
       console.log(data);
-      setPlaces(data);
+
+      setPlaces(data?.filter((place) => place.name && place.num_reviews > 0));
       setFilteredPlaces([]);
       setIsLoading(false);
     });
-  }, [type, coordinates, bounds]);
+  }
+  }, [type, bounds]);
 
   return (
     <>
       <CssBaseline />
-      <Header />
+      <Header setCoordinates={setCoordinates}/>
       <Grid container spacing={3} style={{ width: "100%" }}>
         <Grid item xs={12} md={4}>
           {/*Full width on mobile or 4 spaces on mid to large devices.*/}
           <List    
             isLoading={isLoading}
-            places={filteredPlaces.length ? filteredPlaces : places}
             childClicked={childClicked} 
+            places={filteredPlaces.length ? filteredPlaces : places}
             type={type}
             setType={setType}
             rating={rating}
@@ -66,11 +67,11 @@ const App = () => {
         </Grid>
         <Grid item xs={12} md={8}>
           <Map
-            setCoordinates={setCoordinates}
+            setChildClicked={setChildClicked}
             setBounds={setBounds}
+            setCoordinates={setCoordinates}
             coordinates={coordinates}
             places={filteredPlaces.length ? filteredPlaces : places}
-            setChildClicked={setChildClicked}
           />
         </Grid>
       </Grid>
